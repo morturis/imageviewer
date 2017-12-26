@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package main;
 
-import Persistence.FileImageLoader;
 import controlador.MainFrame;
-import java.awt.Image;
-import java.io.File;
+import java.io.IOException;
+import modelo.FileImageLoader;
+
 
 /**
  *
@@ -19,11 +19,9 @@ public class ImageViewer {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        File[] folder = new File ("ruta").listFiles();
-        FileImageLoader listImages = new FileImageLoader(folder);
-        Image image = FileImageLoader.load();
-        MainFrame mainFrame = new MainFrame();
+    public static void main(String[] args) throws IOException {
+        FileImageLoader loader = new FileImageLoader("C:\\Users\\Rafael\\Pictures");
+        MainFrame mainFrame = new MainFrame (loader);        
         
     }
     

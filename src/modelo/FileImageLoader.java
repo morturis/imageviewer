@@ -1,4 +1,4 @@
-package Persistence;
+package modelo;
 
 import java.awt.Image;
 import java.io.BufferedInputStream;
@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import javax.imageio.ImageIO;
 
 public class FileImageLoader{
     private final File[] file;
@@ -19,7 +21,7 @@ public class FileImageLoader{
         return new FileFilter(){
             @Override
             public boolean accept(File pathname){
-                return pathname.getName().endsWith(".jpg");
+                return pathname.getName().endsWith(".png");
             }
         };
     }
@@ -32,7 +34,7 @@ public class FileImageLoader{
         return new BufferedInputStream (new FileInputStream (file[current]));
     }
 
-    public Image next() {
+    public Image next() throws IOException {
         if(current==file.length-1){
             current = 0;
         }else{
@@ -41,7 +43,7 @@ public class FileImageLoader{
         return load();
     }
 
-    public Image prev() {
+    public Image prev() throws IOException {
         if(current ==0){
             current = file.length-1;
         }else{
@@ -50,8 +52,9 @@ public class FileImageLoader{
         return load();
     }
     
-    public static Image load() {
-        //TODO
-        return null;
+    public Image load() throws IOException {
+        return ImageIO.read(file[current]);
     }
+    
+    public int getNumberOfImages() {return file.length;}
 }
